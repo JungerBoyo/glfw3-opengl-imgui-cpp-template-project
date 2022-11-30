@@ -1,6 +1,6 @@
 find_package(glfw3 REQUIRED)
 find_package(glad REQUIRED)
-find_package(imgui REQUIRED)
+# find_package(imgui REQUIRED)
 # find_package(stb REQUIRED)
 find_package(spdlog REQUIRED)
 
@@ -28,8 +28,8 @@ target_link_libraries(${PROJECT_NAME}
 
 target_link_system_libraries(${PROJECT_NAME}
   PRIVATE
-    imgui_bindings
-    imgui::imgui
+    # imgui_bindings
+    # imgui::imgui
     spdlog::spdlog
     glad::glad
 #    stbi

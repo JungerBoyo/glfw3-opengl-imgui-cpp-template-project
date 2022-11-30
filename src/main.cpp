@@ -9,9 +9,9 @@
 // #include <stb_image.h>
 #include <spdlog/spdlog.h>
 
-#include <imgui.h>
-#include <imgui_bindings/imgui_impl_glfw.h>
-#include <imgui_bindings/imgui_impl_opengl3.h>
+// #include <imgui.h>
+// #include <imgui_bindings/imgui_impl_glfw.h>
+// #include <imgui_bindings/imgui_impl_opengl3.h>
 
 using namespace template_project;
 
@@ -24,11 +24,11 @@ int main() {
         spdlog::error("[OPENGL]{}:{}", id, message);
     });
     // initialize imgui
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGui::StyleColorsDark();
-    ImGui_ImplGlfw_InitForOpenGL(static_cast<GLFWwindow*>(window.native()), true);
-    ImGui_ImplOpenGL3_Init("#version 450");
+    // IMGUI_CHECKVERSION();
+    // ImGui::CreateContext();
+    // ImGui::StyleColorsDark();
+    // ImGui_ImplGlfw_InitForOpenGL(static_cast<GLFWwindow*>(window.native()), true);
+    // ImGui_ImplOpenGL3_Init("#version 450");
 
     // App data
     constexpr std::array<float, 6UL*(2UL+2UL)> quad_vertices{{
@@ -179,19 +179,19 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
         glDrawArrays(GL_TRIANGLES, 0, quad_vertices.size()/4);
 
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
+        // ImGui_ImplOpenGL3_NewFrame();
+        // ImGui_ImplGlfw_NewFrame();
+        // ImGui::NewFrame();
 
-        ImGui::Begin("Config");
-            ImGui::SliderFloat("scaling", &ubo_data.quad_scale, 0.F, 1.F);
-            ImGui::Separator();
-            ImGui::ColorPicker3("clear color", clear_color.data());
-        ImGui::End();
+        // ImGui::Begin("Config");
+        //     ImGui::SliderFloat("scaling", &ubo_data.quad_scale, 0.F, 1.F);
+        //     ImGui::Separator();
+        //     ImGui::ColorPicker3("clear color", clear_color.data());
+        // ImGui::End();
 
-        ImGui::Render();
+        // ImGui::Render();
         
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        // ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         window.swapBuffers();
     }
@@ -202,9 +202,9 @@ int main() {
     glDeleteTextures(1, &quad_tex_id);
     basic_shader.deinit();
     // imgui stuff
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+    // ImGui_ImplOpenGL3_Shutdown();
+    // ImGui_ImplGlfw_Shutdown();
+    // ImGui::DestroyContext();
     // window
     window.deinit();
 }
