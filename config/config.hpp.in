@@ -8,6 +8,7 @@ namespace template_project::cmake{
   static constexpr int project_version_minor { @PROJECT_VERSION_MINOR@ };
   static constexpr int project_version_patch { @PROJECT_VERSION_PATCH@ };
   static constexpr std::string_view git_sha = "@GIT_SHA@";
+  static constexpr std::string_view glsl_version = "@GLSL_VERSION@";
 }
 
 #endif

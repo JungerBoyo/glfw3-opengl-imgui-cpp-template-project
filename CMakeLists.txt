@@ -13,8 +13,8 @@ include(${_project_options_SOURCE_DIR}/Index.cmake)
 ### set up project ###
 project(template
   VERSION 0.0.1
-  DESCRIPTION "C++ template project set up with general structure, tests (catch2), tools and CI"
-  HOMEPAGE_URL "https://github.com/JungerBoyo/cpp-template-project"
+  DESCRIPTION "C++ glfw3+opengl+imgui template project"
+  HOMEPAGE_URL "https://github.com/JungerBoyo/glfw3-opengl-imgui-cpp-template-project"
   LANGUAGES C CXX
 )
 set(GIT_SHA "Unknown" CACHE STRING "SHA of this build")
@@ -26,14 +26,14 @@ set(SUBSTRING "${GIT_SHA}" 0 8 GIT_SHORTENED_SHA)
 ####################
 
 ### set up project options ###
-option(ENABLE_TESTS "<'^'>" OFF)
+option(DEV_MODE "<'^'>" OFF)
   set(ENABLE_CLANG_TIDY                   OFF)
   set(ENABLE_SANITIZER_ADDRESS            OFF)
   set(ENABLE_SANITIZER_UNDEFINED_BEHAVIOR OFF)
   set(ENABLE_COVERAGE                     OFF)
   set(WARNINGS_AS_ERRORS                  OFF)
 
-if(ENABLE_TESTS)
+if(DEV_MODE)
   set(ENABLE_CLANG_TIDY "ENABLE_CLANG_TIDY")
   set(ENABLE_COVERAGE "ENABLE_COVERAGE")
 
@@ -61,7 +61,10 @@ project_options(
 ##############################
 
 ### targets ###
+add_subdirectory(shaders)
+add_subdirectory(assets)
 add_subdirectory(config)
+add_subdirectory(res)
 add_subdirectory(include)
 add_subdirectory(src)
 ###############
@@ -75,16 +78,15 @@ endif()
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
 #####################
 
-### testing ###
-if(ENABLE_TESTS)
-  enable_testing()
-  add_subdirectory(test)
-endif()
-###############
 
 ### package project ###
+install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION "./")
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/shaders/bin DESTINATION "shaders/")
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/shaders/src DESTINATION "shaders/")
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/assets/textures DESTINATION "assets/")
+
 set(CPACK_PACKAGE_FILE_NAME 
-  "${PROJECT_NAME}-${CMAKE_PROJECT_VERSION}-${GIT_SHORT_SHA}-${CMAKE_SYSTEM_NAME}-${CMAKE_BUILD_TYPE}-${CMAKE_CXX_COMPILER_ID}-${CMAKE_CXX_COMPILER_VERSION}"
+  "${PROJECT_NAME}-${CMAKE_PROJECT_VERSION}-${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_VERSION}-${CMAKE_BUILD_TYPE}-${CMAKE_CXX_COMPILER_ID}-${CMAKE_CXX_COMPILER_VERSION}"
 )
 include(CPack)
 #######################
