@@ -45,7 +45,7 @@ jobs:
         with:
           compiler: ${{ matrix.compiler }}
           vcvarsall: ${{ contains(matrix.os, 'windows') }}
-          cmake: true
+          cmake: 3.24.2 
           ninja: true
           conan: 1.53.0
           clangtidy: 14.0.0
