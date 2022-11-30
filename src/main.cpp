@@ -112,12 +112,13 @@ int main() {
     {
         constexpr int desired_channels_num{ 4 };
         const std::filesystem::path img_path("assets/textures/img.jpg");
+        const auto str_img_path = img_path.string();
 
         int width       { 0 };
         int height      { 0 };
         int channels_num{ 0 };
         auto* img_ptr = stbi_load(
-            img_path.c_str(), 
+            str_img_path.c_str(), 
             &width, 
             &height, 
             &channels_num, 
