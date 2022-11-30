@@ -14,7 +14,7 @@ include(${_project_options_SOURCE_DIR}/Index.cmake)
 project(template
   VERSION 0.0.1
   DESCRIPTION "C++ glfw3+opengl+imgui template project"
-  HOMEPAGE_URL "https://github.com/JungerBoyo/glfw3-opengl-imgui-cpp-template-project"
+  HOMEPAGE_URL "https://github.com/JungerBoyo/opengl-template-project"
   LANGUAGES C CXX
 )
 set(GIT_SHA "Unknown" CACHE STRING "SHA of this build")
