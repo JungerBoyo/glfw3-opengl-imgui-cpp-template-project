@@ -1,7 +1,7 @@
 find_package(glfw3 REQUIRED)
 find_package(glad REQUIRED)
 find_package(imgui REQUIRED)
-find_package(stb REQUIRED)
+# find_package(stb REQUIRED)
 find_package(spdlog REQUIRED)
 
 add_library(boilerplate_IMPL STATIC Shader.cpp Window.cpp)
@@ -32,7 +32,7 @@ target_link_system_libraries(${PROJECT_NAME}
     imgui::imgui
     spdlog::spdlog
     glad::glad
-    stbi
+#    stbi
 )
 
 add_dependencies(${PROJECT_NAME} compile_and_copy_shaders_dirs copy_assets)
