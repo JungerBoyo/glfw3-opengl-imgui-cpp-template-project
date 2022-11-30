@@ -6,12 +6,12 @@
 
 #include <glad/glad.h>
 
-// #include <stb_image.h>
+#include <stb_image.h>
 #include <spdlog/spdlog.h>
 
-// #include <imgui.h>
-// #include <imgui_bindings/imgui_impl_glfw.h>
-// #include <imgui_bindings/imgui_impl_opengl3.h>
+#include <imgui.h>
+#include <imgui_bindings/imgui_impl_glfw.h>
+#include <imgui_bindings/imgui_impl_opengl3.h>
 
 using namespace template_project;
 
@@ -24,11 +24,11 @@ int main() {
         spdlog::error("[OPENGL]{}:{}", id, message);
     });
     // initialize imgui
-    // IMGUI_CHECKVERSION();
-    // ImGui::CreateContext();
-    // ImGui::StyleColorsDark();
-    // ImGui_ImplGlfw_InitForOpenGL(static_cast<GLFWwindow*>(window.native()), true);
-    // ImGui_ImplOpenGL3_Init("#version 450");
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGui::StyleColorsDark();
+    ImGui_ImplGlfw_InitForOpenGL(static_cast<GLFWwindow*>(window.native()), true);
+    ImGui_ImplOpenGL3_Init("#version 450");
 
     // App data
     constexpr std::array<float, 6UL*(2UL+2UL)> quad_vertices{{
@@ -110,24 +110,24 @@ int main() {
     // create Texture and load image
     glCreateTextures(GL_TEXTURE_2D, 1, &quad_tex_id);
     {
-        // constexpr int desired_channels_num{ 4 };
-        // const std::filesystem::path img_path("assets/textures/img.jpg");
+        constexpr int desired_channels_num{ 4 };
+        const std::filesystem::path img_path("assets/textures/img.jpg");
 
-        int width       { 40 };
-        int height      { 40 };
-        // int channels_num{ 0 };
-        // auto* img_ptr = stbi_load(
-        //     img_path.c_str(), 
-        //     &width, 
-        //     &height, 
-        //     &channels_num, 
-        //     desired_channels_num
-        // );
+        int width       { 0 };
+        int height      { 0 };
+        int channels_num{ 0 };
+        auto* img_ptr = stbi_load(
+            img_path.c_str(), 
+            &width, 
+            &height, 
+            &channels_num, 
+            desired_channels_num
+        );
 
-        // if (img_ptr == nullptr) {
-        //     spdlog::error("Failed to load img from {}", img_path.c_str());
-        //     return 1;
-        // }
+        if (img_ptr == nullptr) {
+            spdlog::error("Failed to load img from {}", img_path.c_str());
+            return 1;
+        }
 
         const auto num_levels = static_cast<int>(std::ceil(std::log2(std::min(
             static_cast<float>(width), 
@@ -138,17 +138,17 @@ int main() {
         glTextureParameteri(quad_tex_id, GL_TEXTURE_WRAP_T, GL_REPEAT);
         glTextureParameteri(quad_tex_id, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
         glTextureParameteri(quad_tex_id, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        // glTextureSubImage2D(
-        //     quad_tex_id,
-        //     0, 0, 0, width, height,
-        //     GL_RGBA, GL_UNSIGNED_BYTE,
-        //     static_cast<const void*>(img_ptr)
-        // );
+        glTextureSubImage2D(
+            quad_tex_id,
+            0, 0, 0, width, height,
+            GL_RGBA, GL_UNSIGNED_BYTE,
+            static_cast<const void*>(img_ptr)
+        );
         glGenerateTextureMipmap(quad_tex_id);
         glBindTextureUnit(SHCONFIG_2D_TEX_BINDING, quad_tex_id);
 
-        // stbi_image_free(img_ptr);
-        // img_ptr = nullptr;
+        stbi_image_free(img_ptr);
+        img_ptr = nullptr;
     }
     // bind
     basic_shader.bind();
@@ -179,19 +179,19 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
         glDrawArrays(GL_TRIANGLES, 0, quad_vertices.size()/4);
 
-        // ImGui_ImplOpenGL3_NewFrame();
-        // ImGui_ImplGlfw_NewFrame();
-        // ImGui::NewFrame();
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
 
-        // ImGui::Begin("Config");
-        //     ImGui::SliderFloat("scaling", &ubo_data.quad_scale, 0.F, 1.F);
-        //     ImGui::Separator();
-        //     ImGui::ColorPicker3("clear color", clear_color.data());
-        // ImGui::End();
+        ImGui::Begin("Config");
+            ImGui::SliderFloat("scaling", &ubo_data.quad_scale, 0.F, 1.F);
+            ImGui::Separator();
+            ImGui::ColorPicker3("clear color", clear_color.data());
+        ImGui::End();
 
-        // ImGui::Render();
+        ImGui::Render();
         
-        // ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         window.swapBuffers();
     }
@@ -202,9 +202,9 @@ int main() {
     glDeleteTextures(1, &quad_tex_id);
     basic_shader.deinit();
     // imgui stuff
-    // ImGui_ImplOpenGL3_Shutdown();
-    // ImGui_ImplGlfw_Shutdown();
-    // ImGui::DestroyContext();
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
     // window
     window.deinit();
 }
