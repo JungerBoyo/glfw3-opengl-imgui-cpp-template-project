@@ -1,4 +1,3 @@
-find_package(fmt REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(glad REQUIRED)
 find_package(imgui REQUIRED)
@@ -10,8 +9,8 @@ target_link_libraries(boilerplate_IMPL PUBLIC boilerplate_INC)
 
 target_link_system_libraries(boilerplate_IMPL
   PRIVATE
-    fmt::fmt
     glad::glad
+    spdlog::spdlog
     SHCONFIG
 )
 
@@ -31,7 +30,6 @@ target_link_system_libraries(${PROJECT_NAME}
   PRIVATE
     imgui_bindings
     imgui::imgui
-    fmt::fmt
     spdlog::spdlog
     glad::glad
     stbi

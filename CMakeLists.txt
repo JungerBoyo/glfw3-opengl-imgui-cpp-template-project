@@ -81,6 +81,7 @@ set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
 
 ### package project ###
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION "./")
+install(FILES ${PROJECT_SOURCE_DIR}/imgui.ini DESTINATION "./")
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/shaders/bin DESTINATION "shaders/")
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/shaders/src DESTINATION "shaders/")
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/assets/textures DESTINATION "assets/")

@@ -3,7 +3,7 @@
 #include <exception>
 #include <fstream>
 
-#include <fmt/format.h>
+#include <spdlog/spdlog.h>
 #include <glad/glad.h>
 
 using namespace template_project;
@@ -22,7 +22,7 @@ Shader::Shader(Type type, const std::vector<std::filesystem::path>& paths) : typ
 
     const auto sh_count = static_cast<std::size_t>(type);
     if (paths.size() != sh_count) {
-        throw std::runtime_error(fmt::format(
+        throw std::runtime_error(spdlog::fmt_lib::format(
             "Wrong number of shaders for shader type {}. passed {} must be {}", 
             type == Type::VERTEX_FRAGMENT ? "VERTEX_FRAGMENT" : "COMPUTE",
 			paths.size(),

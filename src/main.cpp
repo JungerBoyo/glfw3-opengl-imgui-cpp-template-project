@@ -45,7 +45,7 @@ int main() {
         float aspect_ratio{ 640.F/480.F };
     } ubo_data;
     std::array<float, 3> clear_color{{0.F, 0.F, 0.F}};
-
+    
     std::uint32_t quad_vbo_id{ 0U };
     std::uint32_t quad_vao_id{ 0U };
     std::uint32_t quad_ubo_id{ 0U };
@@ -195,7 +195,6 @@ int main() {
 
         window.swapBuffers();
     }
-
     // opengl stuff
     std::array<std::uint32_t, 2> buffers {{quad_vbo_id, quad_ubo_id}};
     glDeleteBuffers(buffers.size(), buffers.data());
