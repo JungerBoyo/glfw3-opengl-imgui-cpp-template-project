@@ -126,7 +126,7 @@ int main() {
         );
 
         if (img_ptr == nullptr) {
-            spdlog::error("Failed to load img from {}", img_path.c_str());
+            spdlog::error("Failed to load img from {}", str_img_path.c_str());
             return 1;
         }
 
